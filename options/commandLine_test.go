@@ -51,6 +51,36 @@ func TestCommandLine_With_Single_Long_Form_Argument(t *testing.T) {
 	}
 }
 
+func TestCommandLine_With_Single_Long_Form_Argument_Without_A_Value(t *testing.T) {
+	args := []string{"--port"}
+	optionSources, err := parseCommandLine(args)
+
+	if err != nil {
+		t.Errorf("Expected no error, but received %s", err.Error())
+	}
+
+	if len(optionSources) != 1 {
+		t.Errorf("Expected a single option source, but received %+v", optionSources)
+	}
+
+	optionSource := optionSources[0]
+
+	expectedSource := "Command Line"
+	if optionSource.Source != expectedSource {
+		t.Errorf("Expected source to be %s, but got %s", expectedSource, optionSource.Source)
+	}
+
+	expectedName := "port"
+	if optionSource.Name != expectedName {
+		t.Errorf("Expected name to be %s, but got %s", expectedName, optionSource.Name)
+	}
+
+	expectedValue := ""
+	if optionSource.Value != expectedValue {
+		t.Errorf("Expected value to be %s, but got %s", expectedValue, optionSource.Value)
+	}
+}
+
 func TestCommandLine_With_Single_Long_Form_Argument_Without_Equals(t *testing.T) {
 	args := []string{"--port", "8080"}
 	optionSources, err := parseCommandLine(args)
