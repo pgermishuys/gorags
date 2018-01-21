@@ -16,13 +16,11 @@ func getDefaults(opts interface{}) ([]OptionSource, error) {
 	for i := 0; i < typeOfOpts.NumField(); i++ {
 		name := typeOfOpts.Field(i).Name
 		value := fmt.Sprintf("%v", indirect.Field(i))
-		if len(value) > 0 {
-			options = append(options, OptionSource{
-				Source: "Default",
-				Name:   strings.ToLower(name),
-				Value:  value,
-			})
-		}
+		options = append(options, OptionSource{
+			Source: "Default",
+			Name:   strings.ToLower(name),
+			Value:  value,
+		})
 	}
 	return options, nil
 }

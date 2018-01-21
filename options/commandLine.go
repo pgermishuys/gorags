@@ -7,8 +7,8 @@ import (
 
 func parseCommandLine(args []string) ([]OptionSource, error) {
 	var options []OptionSource
-	for _, item := range args {
-		token := item
+	for i := 0; i < len(args); i++ {
+		token := args[i]
 		if strings.HasPrefix(token, "-") {
 			key := token[1:]
 			if len(key) == 0 {
@@ -24,7 +24,15 @@ func parseCommandLine(args []string) ([]OptionSource, error) {
 				value = string(key[index+1:])
 				key = string(key[1:index])
 			} else {
-
+				if strings.HasPrefix(key, "-") {
+					key = key[1:]
+				}
+				if i == (len(args) - 1) {
+					value = ""
+				} else {
+					i++
+					value = args[i]
+				}
 			}
 			options = append(options, OptionSource{
 				Source: "Command Line",
