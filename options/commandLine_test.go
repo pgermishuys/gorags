@@ -2,7 +2,7 @@ package options
 
 import "testing"
 
-func TestCommandLine_With_No_Arguments(t *testing.T) {
+func Test_CommandLine_With_No_Arguments(t *testing.T) {
 	optionSources, err := parseCommandLine([]string{})
 	if err != nil {
 		t.Errorf("Expected no error, but received %s", err.Error())
@@ -12,7 +12,7 @@ func TestCommandLine_With_No_Arguments(t *testing.T) {
 	}
 }
 
-func TestCommandLine_With_Single_Invalid_Argument(t *testing.T) {
+func Test_CommandLine_With_Single_Invalid_Argument(t *testing.T) {
 	args := []string{"-", "port=8080"}
 	_, err := parseCommandLine(args)
 
@@ -21,7 +21,7 @@ func TestCommandLine_With_Single_Invalid_Argument(t *testing.T) {
 	}
 }
 
-func TestCommandLine_With_Single_Long_Form_Argument(t *testing.T) {
+func Test_CommandLine_With_Single_Long_Form_Argument(t *testing.T) {
 	args := []string{"--port=8080"}
 	optionSources, err := parseCommandLine(args)
 
@@ -51,7 +51,7 @@ func TestCommandLine_With_Single_Long_Form_Argument(t *testing.T) {
 	}
 }
 
-func TestCommandLine_With_Single_Long_Form_Argument_Without_A_Value(t *testing.T) {
+func Test_CommandLine_With_Single_Long_Form_Argument_Without_A_Value(t *testing.T) {
 	args := []string{"--port"}
 	optionSources, err := parseCommandLine(args)
 
@@ -81,7 +81,7 @@ func TestCommandLine_With_Single_Long_Form_Argument_Without_A_Value(t *testing.T
 	}
 }
 
-func TestCommandLine_With_Single_Long_Form_Argument_Without_Equals(t *testing.T) {
+func Test_CommandLine_With_Single_Long_Form_Argument_Without_Equals(t *testing.T) {
 	args := []string{"--port", "8080"}
 	optionSources, err := parseCommandLine(args)
 
@@ -111,7 +111,7 @@ func TestCommandLine_With_Single_Long_Form_Argument_Without_Equals(t *testing.T)
 	}
 }
 
-func TestCommandLine_With_Multiple_Long_Form_Argument_Without_Equals(t *testing.T) {
+func Test_CommandLine_With_Multiple_Long_Form_Argument_Without_Equals(t *testing.T) {
 	args := []string{"--port", "8080", "--host", "localhost"}
 	optionSources, err := parseCommandLine(args)
 
@@ -158,7 +158,7 @@ func TestCommandLine_With_Multiple_Long_Form_Argument_Without_Equals(t *testing.
 	}
 }
 
-func TestCommandLine_With_Single_Short_Form_Argument(t *testing.T) {
+func Test_CommandLine_With_Single_Short_Form_Argument(t *testing.T) {
 	args := []string{"--mem-db-"}
 	optionSources, err := parseCommandLine(args)
 

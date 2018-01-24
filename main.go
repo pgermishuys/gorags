@@ -2,23 +2,29 @@ package main
 
 import (
 	"log"
+	"os"
 
 	"github.com/pgermishuys/gorags/options"
 )
 
+// SampleOptions ...
 type SampleOptions struct {
 	Host string
 	Port int
 }
 
 func main() {
-	opts, err := options.Parse(SampleOptions{
+	sampleOptions := SampleOptions{
 		Host: "127.0.0.1",
-	}, "SAMPLE_")
+		Port: 8080,
+	}
+	opts, err := options.Parse(os.Args[1:], sampleOptions, "SAMPLE_")
 
 	if err != nil {
 		log.Fatal(err)
 	}
 
 	options.Log(opts)
+
+	// _ = options.Apply(opts, &sampleOptions)
 }
