@@ -5,12 +5,12 @@ import "testing"
 func Test_EnsureExistence_With_An_OptionSource_Which_Does_Not_Exist(t *testing.T) {
 	optionSources := []OptionSource{
 		OptionSource{
-			Source: "Command Line",
+			Source: CommandLineSource,
 			Name:   "Port",
 			Value:  "8080",
 		},
 		OptionSource{
-			Source: "Command Line",
+			Source: CommandLineSource,
 			Name:   "NonExistent",
 			Value:  "BogusValue",
 		},
@@ -24,12 +24,12 @@ func Test_EnsureExistence_With_An_OptionSource_Which_Does_Not_Exist(t *testing.T
 func Test_EnsureExistence_With_OptionSources_That_Does_Exist(t *testing.T) {
 	optionSources := []OptionSource{
 		OptionSource{
-			Source: "Command Line",
+			Source: CommandLineSource,
 			Name:   "Host",
 			Value:  "localhost",
 		},
 		OptionSource{
-			Source: "Command Line",
+			Source: CommandLineSource,
 			Name:   "Port",
 			Value:  "8080",
 		},

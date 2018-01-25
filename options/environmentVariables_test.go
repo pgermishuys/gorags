@@ -31,7 +31,7 @@ func Test_EnvironmentVariables_With_A_Single_Environment_Variable_Set(t *testing
 
 	optionSource := optionSources[0]
 
-	expectedSource := "Environment"
+	expectedSource := EnvironmentSource
 	if optionSource.Source != expectedSource {
 		t.Errorf("Expected source to be %s, but got %s", expectedSource, optionSource.Source)
 	}

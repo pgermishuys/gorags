@@ -43,7 +43,7 @@ port: 8080
 
 	optionSource := optionSources[0]
 
-	expectedSource := "Config (Yaml)"
+	expectedSource := ConfigYamlSource
 	if optionSource.Source != expectedSource {
 		t.Errorf("Expected source to be %s, but got %s", expectedSource, optionSource.Source)
 	}
@@ -60,7 +60,7 @@ port: 8080
 
 	optionSource = optionSources[1]
 
-	expectedSource = "Config (Yaml)"
+	expectedSource = ConfigYamlSource
 	if optionSource.Source != expectedSource {
 		t.Errorf("Expected source to be %s, but got %s", expectedSource, optionSource.Source)
 	}

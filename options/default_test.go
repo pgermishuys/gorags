@@ -34,7 +34,7 @@ func Test_Defaults_With_A_Single_Default_Explicitly_Set(t *testing.T) {
 
 	optionSource := optionSources[0]
 
-	expectedSource := "Default"
+	expectedSource := DefaultSource
 	if optionSource.Source != expectedSource {
 		t.Errorf("Expected source to be %s, but got %s", expectedSource, optionSource.Source)
 	}
@@ -51,7 +51,7 @@ func Test_Defaults_With_A_Single_Default_Explicitly_Set(t *testing.T) {
 
 	optionSource = optionSources[1]
 
-	expectedSource = "Default"
+	expectedSource = DefaultSource
 	if optionSource.Source != expectedSource {
 		t.Errorf("Expected source to be %s, but got %s", expectedSource, optionSource.Source)
 	}

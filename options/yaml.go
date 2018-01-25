@@ -8,6 +8,9 @@ import (
 	"gopkg.in/yaml.v2"
 )
 
+// ConfigYamlSource ...
+const ConfigYamlSource = "Config (Yaml)"
+
 func parseYaml(data []byte) ([]OptionSource, error) {
 	var optionSources []OptionSource
 	var res interface{}
@@ -23,7 +26,7 @@ func parseYaml(data []byte) ([]OptionSource, error) {
 		for _, key := range v.MapKeys() {
 			structure := v.MapIndex(key)
 			optionSources = append(optionSources, OptionSource{
-				Source: "Config (Yaml)",
+				Source: ConfigYamlSource,
 				Name:   strings.ToLower(fmt.Sprint(key.Interface())),
 				Value:  strings.ToLower(fmt.Sprint(structure.Interface())),
 			})

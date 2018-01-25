@@ -35,7 +35,7 @@ func Test_CommandLine_With_Single_Long_Form_Argument(t *testing.T) {
 
 	optionSource := optionSources[0]
 
-	expectedSource := "Command Line"
+	expectedSource := CommandLineSource
 	if optionSource.Source != expectedSource {
 		t.Errorf("Expected source to be %s, but got %s", expectedSource, optionSource.Source)
 	}
@@ -65,7 +65,7 @@ func Test_CommandLine_With_Single_Long_Form_Argument_Without_A_Value(t *testing.
 
 	optionSource := optionSources[0]
 
-	expectedSource := "Command Line"
+	expectedSource := CommandLineSource
 	if optionSource.Source != expectedSource {
 		t.Errorf("Expected source to be %s, but got %s", expectedSource, optionSource.Source)
 	}
@@ -95,7 +95,7 @@ func Test_CommandLine_With_Single_Long_Form_Argument_Without_Equals(t *testing.T
 
 	optionSource := optionSources[0]
 
-	expectedSource := "Command Line"
+	expectedSource := CommandLineSource
 	if optionSource.Source != expectedSource {
 		t.Errorf("Expected source to be %s, but got %s", expectedSource, optionSource.Source)
 	}
@@ -125,7 +125,7 @@ func Test_CommandLine_With_Multiple_Long_Form_Argument_Without_Equals(t *testing
 
 	optionSource := optionSources[0]
 
-	expectedSource := "Command Line"
+	expectedSource := CommandLineSource
 	if optionSource.Source != expectedSource {
 		t.Errorf("Expected source to be %s, but got %s", expectedSource, optionSource.Source)
 	}
@@ -142,7 +142,7 @@ func Test_CommandLine_With_Multiple_Long_Form_Argument_Without_Equals(t *testing
 
 	optionSource = optionSources[1]
 
-	expectedSource = "Command Line"
+	expectedSource = CommandLineSource
 	if optionSource.Source != expectedSource {
 		t.Errorf("Expected source to be %s, but got %s", expectedSource, optionSource.Source)
 	}
@@ -172,7 +172,7 @@ func Test_CommandLine_With_Single_Short_Form_Argument(t *testing.T) {
 
 	optionSource := optionSources[0]
 
-	expectedSource := "Command Line"
+	expectedSource := CommandLineSource
 	if optionSource.Source != expectedSource {
 		t.Errorf("Expected source to be %s, but got %s", expectedSource, optionSource.Source)
 	}

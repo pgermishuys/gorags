@@ -6,6 +6,9 @@ import (
 	"strings"
 )
 
+// EnvironmentSource ...
+const EnvironmentSource = "Environment"
+
 func parseEnvironmentVariables(opts interface{}, envPrefix string) ([]OptionSource, error) {
 	var options []OptionSource
 
@@ -17,7 +20,7 @@ func parseEnvironmentVariables(opts interface{}, envPrefix string) ([]OptionSour
 		value := os.Getenv(environmentVariableName)
 		if len(value) > 0 {
 			options = append(options, OptionSource{
-				Source: "Environment",
+				Source: EnvironmentSource,
 				Name:   strings.ToLower(fieldName),
 				Value:  value,
 			})

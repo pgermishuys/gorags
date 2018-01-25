@@ -6,6 +6,9 @@ import (
 	"strings"
 )
 
+// DefaultSource ...
+const DefaultSource = "Default"
+
 func getDefaults(opts interface{}) ([]OptionSource, error) {
 	var options []OptionSource
 
@@ -17,7 +20,7 @@ func getDefaults(opts interface{}) ([]OptionSource, error) {
 		name := typeOfOpts.Field(i).Name
 		value := fmt.Sprintf("%v", indirect.Field(i))
 		options = append(options, OptionSource{
-			Source: "Default",
+			Source: DefaultSource,
 			Name:   strings.ToLower(name),
 			Value:  value,
 		})

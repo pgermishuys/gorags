@@ -1,8 +1,10 @@
 package options
 
 import (
+	"fmt"
 	"io/ioutil"
 	"log"
+	"os"
 )
 
 // Parse ...
@@ -50,7 +52,60 @@ func Parse(args []string, option interface{}, prefix string) ([]OptionSource, er
 	return options, nil
 }
 
+func resolvePrecedence(optionSources []OptionSource) []OptionSource {
+	sorted := toSortedMap(optionSources)
+	effective := make(map[string]OptionSource, 0)
+	for i := len(sorted); i > 0; i-- {
+		for _, item := range sorted[i] {
+			if _, ok := effective[item.Name]; !ok {
+				effective[item.Name] = item
+			}
+		}
+	}
+	var done []OptionSource
+	for _, item := range effective {
+		done = append(done, item)
+	}
+	return done
+}
+
+func toSortedMap(optionSources []OptionSource) map[int][]OptionSource {
+	sources := make(map[int][]OptionSource)
+	for _, item := range optionSources {
+		switch item.Source {
+		case DefaultSource:
+			if _, ok := sources[0]; !ok {
+				sources[0] = make([]OptionSource, 0)
+			}
+			sources[0] = append(sources[0], item)
+			break
+		case EnvironmentSource:
+			if _, ok := sources[1]; !ok {
+				sources[1] = make([]OptionSource, 0)
+			}
+			sources[1] = append(sources[1], item)
+			break
+		case ConfigYamlSource:
+			if _, ok := sources[2]; !ok {
+				sources[2] = make([]OptionSource, 0)
+			}
+			sources[1] = append(sources[1], item)
+			break
+		case CommandLineSource:
+			if _, ok := sources[3]; !ok {
+				sources[3] = make([]OptionSource, 0)
+			}
+			sources[3] = append(sources[3], item)
+			break
+		}
+	}
+	return sources
+}
+
 func readConfigFile(configFileSource OptionSource) ([]OptionSource, error) {
+	if _, err := os.Stat(configFileSource.Value); os.IsNotExist(err) {
+		return []OptionSource{}, fmt.Errorf("The file at %s does not exist", configFileSource.Value)
+	}
 	contents, err := ioutil.ReadFile(configFileSource.Value)
 	if err != nil {
 		return []OptionSource{}, err

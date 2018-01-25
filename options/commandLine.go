@@ -5,6 +5,9 @@ import (
 	"strings"
 )
 
+// CommandLineSource ...
+const CommandLineSource = "Command Line"
+
 func parseCommandLine(args []string) ([]OptionSource, error) {
 	var options []OptionSource
 	for i := 0; i < len(args); i++ {
@@ -35,7 +38,7 @@ func parseCommandLine(args []string) ([]OptionSource, error) {
 				}
 			}
 			options = append(options, OptionSource{
-				Source: "Command Line",
+				Source: CommandLineSource,
 				Name:   strings.ToLower(key),
 				Value:  value,
 			})
