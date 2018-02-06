@@ -25,5 +25,5 @@ func main() {
 	}
 
 	options.Log(opts)
-	log.Printf("Parsed: %+v\n", sampleOptions)
+	log.Printf("Parsed options: \n%+v", sampleOptions)
 }

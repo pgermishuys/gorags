@@ -158,6 +158,6 @@ func getConfigFile(optionSources []OptionSource) OptionSource {
 // Log ...
 func Log(optionSources []OptionSource) {
 	for _, option := range optionSources {
-		log.Printf("Source: %s, Name: %s, Value: %s\n", option.Source, option.Name, option.Value)
+		log.Printf("%s: \t%s ( %s )\n", option.Name, option.Value, option.Source)
 	}
 }
