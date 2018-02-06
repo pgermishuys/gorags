@@ -18,13 +18,12 @@ func main() {
 		Host: "127.0.0.1",
 		Port: 8080,
 	}
-	opts, err := options.Parse(os.Args[1:], sampleOptions, "SAMPLE_")
+	opts, err := options.Parse(os.Args[1:], &sampleOptions, "SAMPLE_")
 
 	if err != nil {
 		log.Fatal(err)
 	}
 
 	options.Log(opts)
-
-	// _ = options.Apply(opts, &sampleOptions)
+	log.Printf("Parsed: %+v\n", sampleOptions)
 }

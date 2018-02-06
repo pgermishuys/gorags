@@ -13,9 +13,11 @@ func parseEnvironmentVariables(opts interface{}, envPrefix string) ([]OptionSour
 	var options []OptionSource
 
 	val := reflect.ValueOf(opts)
+	indirect := reflect.Indirect(val)
+	typeOfOpts := indirect.Type()
 
-	for i := 0; i < val.NumField(); i++ {
-		fieldName := val.Type().Field(i).Name
+	for i := 0; i < typeOfOpts.NumField(); i++ {
+		fieldName := typeOfOpts.Field(i).Name
 		environmentVariableName := envPrefix + strings.ToUpper(fieldName)
 		value := os.Getenv(environmentVariableName)
 		if len(value) > 0 {

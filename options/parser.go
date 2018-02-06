@@ -5,6 +5,8 @@ import (
 	"io/ioutil"
 	"log"
 	"os"
+
+	"github.com/mitchellh/mapstructure"
 )
 
 // Parse ...
@@ -49,15 +51,35 @@ func Parse(args []string, option interface{}, prefix string) ([]OptionSource, er
 		options = append(options, configFileOptionSources...)
 	}
 
-	return options, nil
+	resolved := resolvePrecedence(options)
+	apply(resolved, option)
+	return resolved, nil
+}
+
+func apply(optionSources []OptionSource, instance interface{}) {
+	properties := make(map[string]interface{})
+	for _, item := range optionSources {
+		properties[item.Name] = item.Value
+	}
+	config := defaultDecoderConfig(instance)
+	decoder, _ := mapstructure.NewDecoder(config)
+	decoder.Decode(properties)
+}
+
+func defaultDecoderConfig(output interface{}) *mapstructure.DecoderConfig {
+	return &mapstructure.DecoderConfig{
+		Result:           output,
+		WeaklyTypedInput: true,
+	}
 }
 
 func resolvePrecedence(optionSources []OptionSource) []OptionSource {
 	sorted := toSortedMap(optionSources)
 	effective := make(map[string]OptionSource, 0)
-	for i := len(sorted); i > 0; i-- {
+	for i := len(sorted); i >= 0; i-- {
 		for _, item := range sorted[i] {
 			if _, ok := effective[item.Name]; !ok {
+				item.Type = getOptionSource(sorted[0], item.Name).Type
 				effective[item.Name] = item
 			}
 		}
@@ -67,6 +89,17 @@ func resolvePrecedence(optionSources []OptionSource) []OptionSource {
 		done = append(done, item)
 	}
 	return done
+}
+
+// this method is not necessary and we can do a better job by using a map for lookup
+// instead of going through the list every call
+func getOptionSource(optionSources []OptionSource, name string) OptionSource {
+	for _, item := range optionSources {
+		if item.Name == name {
+			return item
+		}
+	}
+	return OptionSource{}
 }
 
 func toSortedMap(optionSources []OptionSource) map[int][]OptionSource {

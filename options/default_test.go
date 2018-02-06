@@ -8,7 +8,7 @@ type TestOptions struct {
 }
 
 func Test_Defaults_With_No_Explicit_Defaults(t *testing.T) {
-	optionSources, err := getDefaults(TestOptions{})
+	optionSources, err := getDefaults(&TestOptions{})
 
 	if err != nil {
 		t.Errorf("Expected no error, but received %s", err.Error())
@@ -20,7 +20,7 @@ func Test_Defaults_With_No_Explicit_Defaults(t *testing.T) {
 }
 
 func Test_Defaults_With_A_Single_Default_Explicitly_Set(t *testing.T) {
-	optionSources, err := getDefaults(TestOptions{
+	optionSources, err := getDefaults(&TestOptions{
 		Port: 8080,
 	})
 

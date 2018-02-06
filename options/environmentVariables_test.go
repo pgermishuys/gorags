@@ -6,7 +6,7 @@ import (
 )
 
 func Test_EnvironmentVariables_With_No_EnvironmentVariables_Set(t *testing.T) {
-	optionSources, err := parseEnvironmentVariables(TestOptions{}, "TEST_")
+	optionSources, err := parseEnvironmentVariables(&TestOptions{}, "TEST_")
 
 	if err != nil {
 		t.Errorf("Expected no error, but received %s", err.Error())
@@ -19,7 +19,7 @@ func Test_EnvironmentVariables_With_No_EnvironmentVariables_Set(t *testing.T) {
 
 func Test_EnvironmentVariables_With_A_Single_Environment_Variable_Set(t *testing.T) {
 	os.Setenv("TEST_PORT", "8080")
-	optionSources, err := parseEnvironmentVariables(TestOptions{}, "TEST_")
+	optionSources, err := parseEnvironmentVariables(&TestOptions{}, "TEST_")
 
 	if err != nil {
 		t.Errorf("Expected no error, but received %s", err.Error())
