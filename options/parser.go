@@ -79,7 +79,6 @@ func resolvePrecedence(optionSources []OptionSource) []OptionSource {
 	for i := len(sorted); i >= 0; i-- {
 		for _, item := range sorted[i] {
 			if _, ok := effective[item.Name]; !ok {
-				item.Type = getOptionSource(sorted[0], item.Name).Type
 				effective[item.Name] = item
 			}
 		}
@@ -89,17 +88,6 @@ func resolvePrecedence(optionSources []OptionSource) []OptionSource {
 		done = append(done, item)
 	}
 	return done
-}
-
-// this method is not necessary and we can do a better job by using a map for lookup
-// instead of going through the list every call
-func getOptionSource(optionSources []OptionSource, name string) OptionSource {
-	for _, item := range optionSources {
-		if item.Name == name {
-			return item
-		}
-	}
-	return OptionSource{}
 }
 
 func toSortedMap(optionSources []OptionSource) map[int][]OptionSource {
